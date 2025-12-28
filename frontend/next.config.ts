@@ -51,6 +51,19 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "*.nftstorage.link",
       },
+      // Common image CDNs (for testing/demo purposes)
+      {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.imgur.com",
+      },
     ],
     unoptimized: process.env.NODE_ENV === "development", // Skip optimization in dev for faster builds
   },

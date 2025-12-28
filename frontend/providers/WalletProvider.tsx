@@ -6,7 +6,6 @@ import {
   WalletProvider as SolanaWalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import { PhantomWalletAdapter, SolflareWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { RPC_ENDPOINT } from "@/lib/constants";
 
 // Import wallet adapter styles
@@ -18,13 +17,8 @@ interface WalletProviderProps {
 
 export function WalletProvider({ children }: WalletProviderProps) {
   // Configure wallets
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-      new SolflareWalletAdapter(),
-    ],
-    []
-  );
+  // Use empty array - wallets will auto-register as Standard Wallets
+  const wallets = useMemo(() => [], []);
 
   return (
     <ConnectionProvider endpoint={RPC_ENDPOINT}>
