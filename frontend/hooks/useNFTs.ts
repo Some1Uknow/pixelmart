@@ -105,12 +105,15 @@ export function useOwnedNFTs() {
 export function useNFTs() {
   const { nfts, loading, error, refetch } = useOwnedNFTs();
   
-  // Transform to simpler format for pages with real metadata
+  // Transform to format for pages with full metadata
   const simplifiedNfts = nfts.map((nft) => ({
     mint: nft.mint.toString(),
     name: nft.metadata?.name || `NFT #${nft.mint.toString().slice(0, 4)}`,
     image: nft.metadata?.image || PLACEHOLDER_IMAGE,
     description: nft.metadata?.description,
+    symbol: nft.metadata?.symbol,
+    attributes: nft.metadata?.attributes,
+    collection: nft.metadata?.collection,
     isListed: nft.isListed,
   }));
   

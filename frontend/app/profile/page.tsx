@@ -130,11 +130,11 @@ export default function ProfilePage() {
                   )}
                 </button>
                 <a
-                  href={`https://solscan.io/account/${publicKey.toString()}?cluster=devnet`}
+                  href={`https://explorer.solana.com/account/${publicKey.toString()}?cluster=devnet`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 hover:bg-muted transition-colors"
-                  title="View on Solscan"
+                  title="View on Explorer"
                 >
                   <ExternalLink className="w-4 h-4" />
                 </a>
@@ -328,7 +328,15 @@ function OwnedNFTCard({
   nft,
   onList,
 }: {
-  nft: { mint: string; name?: string; image?: string };
+  nft: {
+    mint: string;
+    name?: string;
+    image?: string;
+    description?: string;
+    symbol?: string;
+    attributes?: Array<{ trait_type: string; value: string }>;
+    collection?: { name: string; family?: string };
+  };
   onList: () => void;
 }) {
   return (
@@ -348,15 +356,69 @@ function OwnedNFTCard({
           </div>
         )}
       </div>
-      <CardContent className="pt-4 pb-4">
-        <h3 className="font-head font-bold truncate mb-3">
-          {nft.name || "Unnamed NFT"}
-        </h3>
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="flex-1 justify-center">
-            Not Listed
-          </Badge>
-          <Button size="sm" onClick={onList}>
+      <CardContent className="pt-4 pb-4 space-y-3">
+        {/* Name and Symbol */}
+        <div>
+          <h3 className="font-head font-bold truncate">
+            {nft.name || "Unnamed NFT"}
+          </h3>
+          {nft.symbol && (
+            <p className="text-xs text-muted-foreground">{nft.symbol}</p>
+          )}
+        </div>
+
+        {/* Collection */}
+        {nft.collection?.name && (
+          <div>
+            <p className="text-xs text-muted-foreground">Collection</p>
+            <p className="text-sm font-medium">{nft.collection.name}</p>
+            {nft.collection.family && (
+              <p className="text-xs text-muted-foreground">{nft.collection.family}</p>
+            )}
+          </div>
+        )}
+
+        {/* Description */}
+        {nft.description && (
+          <div>
+            <p className="text-xs text-muted-foreground">Description</p>
+            <p className="text-sm line-clamp-2">{nft.description}</p>
+          </div>
+        )}
+
+        {/* Attributes */}
+        {nft.attributes && nft.attributes.length > 0 && (
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">Attributes</p>
+            <div className="flex flex-wrap gap-1">
+              {nft.attributes.slice(0, 4).map((attr, index) => (
+                <Badge key={index} variant="outline" className="text-xs">
+                  {attr.trait_type}: {attr.value}
+                </Badge>
+              ))}
+              {nft.attributes.length > 4 && (
+                <Badge variant="outline" className="text-xs">
+                  +{nft.attributes.length - 4} more
+                </Badge>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Actions */}
+        <div className="flex items-center gap-2 pt-2 border-t-2 border-border">
+          <a
+            href={`https://explorer.solana.com/address/${nft.mint}?cluster=devnet`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1"
+          >
+            <Button variant="outline" size="sm" className="w-full gap-2">
+              <ExternalLink className="w-3 h-3" />
+              Explorer
+            </Button>
+          </a>
+          <Button size="sm" onClick={onList} className="flex-1">
             List for Sale
           </Button>
         </div>

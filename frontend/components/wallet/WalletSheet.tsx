@@ -580,7 +580,7 @@ export function WalletSheet({ isOpen, onClose }: WalletSheetProps) {
                     transactions.map((tx) => (
                       <a
                         key={tx.signature}
-                        href={`https://solscan.io/tx/${tx.signature}`}
+                        href={`https://explorer.solana.com/tx/${tx.signature}?cluster=devnet`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 p-3 border-2 border-border hover:border-primary transition-colors"
@@ -629,7 +629,7 @@ export function WalletSheet({ isOpen, onClose }: WalletSheetProps) {
 
                   {transactions.length > 0 && (
                     <a
-                      href={`https://solscan.io/account/${walletAddress}`}
+                      href={`https://explorer.solana.com/account/${walletAddress}?cluster=devnet`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="block text-center text-sm text-primary hover:underline pt-4"
@@ -642,18 +642,23 @@ export function WalletSheet({ isOpen, onClose }: WalletSheetProps) {
 
             {/* Footer */}
             <div className="shrink-0 border-t-2 border-border p-4 space-y-3">
-              <div className="flex gap-2">
+              <div className="flex flex-col gap-2">
                 <a
-                  href={`https://solscan.io/account/${walletAddress}`}
+                  href={`https://explorer.solana.com/account/${walletAddress}?cluster=devnet`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1"
                 >
                   <Button variant="outline" className="w-full gap-2">
                     <ExternalLink className="w-4 h-4" />
                     Explorer
                   </Button>
                 </a>
+                <Button
+                  variant="outline"
+                  onClick={() => setVisible(true)}
+                >
+                  Change Wallet
+                </Button>
                 <Button
                   variant="outline"
                   onClick={handleDisconnect}

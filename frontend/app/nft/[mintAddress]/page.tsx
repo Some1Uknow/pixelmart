@@ -323,9 +323,9 @@ export default function NFTDetailPage() {
                 />
                 <DetailRow
                   icon={<ExternalLink className="w-4 h-4" />}
-                  label="View on Solscan"
+                  label="View on Explorer"
                   value="Open Explorer"
-                  href={`https://solscan.io/token/${mintAddress}?cluster=devnet`}
+                  href={`https://explorer.solana.com/address/${mintAddress}?cluster=devnet`}
                 />
               </CardContent>
             </Card>
